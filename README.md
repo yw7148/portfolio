@@ -14,7 +14,7 @@ Welcome to my Backend developer portfolio repository! This project showcases my 
 - **Database Integration**: Oracle Database for robust data storage.
 - **Testing**: Comprehensive unit and integration tests.
 - **Documentation**: Well-documented API using Swagger/OpenAPI.
-- **Deployment**: Continuous integration and deployment using Jenkins and Docker.
+- **Deployment**: Continuous integration and deployment using GitHub Actions and Docker.
 
 ## 🛠️ Technologies Used
 > for DevOps information, please refer [Server Repository](https://github.com/yw7148/Server)
@@ -23,7 +23,7 @@ Welcome to my Backend developer portfolio repository! This project showcases my 
 - **Authentication**: JWT, OAuth (Preparing...)
 - **Testing**: Spring Test (JUnit)
 - **Containerization**: Docker
-- **CI/CD**: Jenkins
+- **CI/CD**: GitHub Actions
 - **Others**: Thymeleaf/HTML/css/js
 
 ## 📂 Project Structure
@@ -42,7 +42,9 @@ Welcome to my Backend developer portfolio repository! This project showcases my 
 │   └── tests
 ├── Dockerfile
 ├── build.gradle
-├── Jenkinsfile
+├── .github/workflows
+│   ├── ci.yml
+│   └── release.yml
 ├── LICENSE
 └── README.md
 ```
@@ -68,6 +70,27 @@ DOCKER_BUILDKIT=1 docker buildx build \
     --build-arg JWT_SECRET=${TEST_JWT_SECRET} \
     -t yw7148/portfolio:latest .'
 ```
+
+## CI/CD
+
+GitHub Actions workflows now handle the repository CI/CD flow.
+
+- Push to `main`: runs `clean test bootJar`
+- Push a Git tag: runs build/test, creates a GitHub Release, then publishes Docker images to Docker Hub
+
+### Required GitHub repository secrets
+
+- `DB_URL`
+- `DB_USER`
+- `DB_PW`
+- `JWT_SECRET`
+- `DOCKERHUB_USERNAME`
+- `DOCKERHUB_TOKEN`
+
+### Docker image tags published on release
+
+- `yw7148/portfolio:<git-tag>`
+- `yw7148/portfolio:latest`
 
 ## Deploy
 
