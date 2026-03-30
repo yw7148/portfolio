@@ -26,11 +26,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build and test
-        env:
-          DB_URL: ${{ secrets.DB_URL }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PW: ${{ secrets.DB_PW }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
         run: ./gradlew clean test bootJar
 
   create-release:
@@ -84,8 +79,3 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ github.ref_name }}
             ${{ env.IMAGE_NAME }}:latest
-          build-args: |
-            DB_URL=${{ secrets.DB_URL }}
-            DB_USER=${{ secrets.DB_USER }}
-            DB_PW=${{ secrets.DB_PW }}
-            JWT_SECRET=${{ secrets.JWT_SECRET }}

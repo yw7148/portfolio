@@ -13,18 +13,18 @@ Welcome to my Backend developer portfolio repository! This project showcases my 
 - **RESTful API**: Efficient and scalable APIs.
 - **Database Integration**: Oracle Database for robust data storage.
 - **Testing**: Comprehensive unit and integration tests.
-- **Documentation**: Well-documented API using Swagger/OpenAPI.
+- **Documentation**: Contract-first API design using OpenAPI YAML.
 - **Deployment**: Continuous integration and deployment using GitHub Actions and Docker.
 
 ## 🛠️ Technologies Used
 > for DevOps information, please refer [Server Repository](https://github.com/yw7148/Server)
-- **Backend**: Spring boot 3.2.1 (Java 17)
+- **Backend**: Spring Boot 4.0.3 (Java 17, Kotlin-enabled)
 - **Database**: Mariadb 11 (Local Development), Oracle Database 19c (Production)
 - **Authentication**: JWT, OAuth (Preparing...)
 - **Testing**: Spring Test (JUnit)
 - **Containerization**: Docker
 - **CI/CD**: GitHub Actions
-- **Others**: Thymeleaf/HTML/css/js
+- **Others**: OpenAPI Generator, Kotlin REST controllers
 
 ## 📂 Project Structure
 
@@ -32,19 +32,17 @@ Welcome to my Backend developer portfolio repository! This project showcases my 
 .
 ├── src
 |   ├── main
-│   |   ├── java
-|   |   |   ├── controllers
-|   |   |   ├── dto
-|   |   |   ├── entity
-|   |   |   ├── repository
-|   │   |   └── services
-|   |   └── resources
-│   └── tests
+│   |   ├── kotlin
+│   |   ├── openapi
+│   |   └── resources
+│   └── test
 ├── Dockerfile
 ├── build.gradle
 ├── .github/workflows
 │   ├── ci.yml
 │   └── release.yml
+├── docs
+│   └── refactoring-to-kotlin.md
 ├── LICENSE
 └── README.md
 ```
@@ -64,10 +62,6 @@ Welcome to my Backend developer portfolio repository! This project showcases my 
 ```bash
 DOCKER_BUILDKIT=1 docker buildx build \
     --platform linux/amd64,linux/arm64 \ #option to support multi-platform
-    --build-arg DB_URL=${TEST_DB_URL} \
-    --build-arg DB_USER=${TEST_DB_USER} \
-    --build-arg DB_PW=${TEST_DB_PASSWORD} \
-    --build-arg JWT_SECRET=${TEST_JWT_SECRET} \
     -t yw7148/portfolio:latest .'
 ```
 
@@ -80,10 +74,6 @@ GitHub Actions workflows now handle the repository CI/CD flow.
 
 ### Required GitHub repository secrets
 
-- `DB_URL`
-- `DB_USER`
-- `DB_PW`
-- `JWT_SECRET`
 - `DOCKERHUB_USERNAME`
 - `DOCKERHUB_TOKEN`
 
@@ -110,11 +100,41 @@ docker run --pull always -d --name portfolio -p 9001:9001 \
     yw7148/portfolio:latest
 ```
 
-## 📄 API Documentation (Preparing ... )
+## 📄 API Contract
+
+The backend contract now starts from OpenAPI YAML.
+
+- Spec location: `src/main/openapi/portfolio-api.yaml`
+- Validate spec: `./gradlew openApiValidate`
+- Generate Kotlin/Spring stubs: `./gradlew openApiGenerate`
+- Generated server stubs: `build/generated/openapi/src/main/kotlin`
+- Current REST endpoints in progress: `/api/v1/projects`, `/api/v1/projects/{projectId}/programs`, `/api/v1/contacts`
+
+The backend now targets REST APIs only.
+
+- Legacy Thymeleaf page routes are no longer part of the active runtime path
+- Static resource mappings are disabled in application configuration
+- Integration tests use Testcontainers, so build/test does not need an external DB connection
+
+## ✅ Current Checkpoint
+
+The repository currently passes this verification baseline:
+
+```bash
+./gradlew clean test openApiValidate openApiGenerate bootJar
+```
+
+Current state:
+
+- Spring Boot `4.0.3`
+- REST-only backend runtime
+- OpenAPI-first contract in `src/main/openapi/portfolio-api.yaml`
+- Kotlin application entry point, DTOs, controllers, services, repositories, and entities
+- GitHub Actions-based CI/CD and Docker packaging
 
 ## 📬 Contact
 
-- **Email**: yw7148@naver.com
+- **Email**: youngwon@youngwon.me
 - **Portfolio**: [Home](http://youngwon.me), [CV Page](http://youngwon.me/portfolio/cv)
 
 ## 📝 License
