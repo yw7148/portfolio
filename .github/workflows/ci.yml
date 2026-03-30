@@ -12,11 +12,6 @@ permissions:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    env:
-      DB_URL: ${{ secrets.DB_URL }}
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PW: ${{ secrets.DB_PW }}
-      JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
     steps:
       - name: Checkout

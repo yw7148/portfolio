@@ -1,4 +1,7 @@
 spring:
+  web:
+    resources:
+      add-mappings: false
   profiles:
     group:
       "local": "local-db,local-server"

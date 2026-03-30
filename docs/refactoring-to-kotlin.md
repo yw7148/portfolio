@@ -14,6 +14,31 @@
 - 수기 구현 코드와 생성 코드의 경계 분리
 - Docker / GitHub Actions 배포 흐름으로 변경
 
+## 현재 진행 상태
+
+2026-03-30 기준 현재 체크포인트:
+
+- Spring Boot `4.0.3` 업그레이드 완료
+- REST-only runtime 전환 완료
+- Thymeleaf controller / template 제거 완료
+- OpenAPI YAML 도입 완료
+- `openApiValidate` / `openApiGenerate` 연결 완료
+- Kotlin application entry point 전환 완료
+- DTO / controller / service / repository / entity 계층 Kotlin 전환 완료
+- GitHub Actions 기반 CI/CD 전환 완료
+
+현재 검증 기준:
+
+```bash
+./gradlew clean test openApiValidate openApiGenerate bootJar
+```
+
+현재 남은 대표 작업:
+
+- 불필요한 레거시 정적 자산 정리 여부 결정
+- Oracle 경로에 대한 실제 환경 검증
+- 필요 시 generated error handling / package layout 추가 정리
+
 ## 새 방향
 - Thymeleaf는 제거
 - 백엔드는 REST API만 제공
@@ -28,7 +53,7 @@
 
 ## 현재 상태
 
-현재 저장소는 다음 특징을 가진다.
+마이그레이션 이전 기준 저장소는 다음 특징을 가졌다.
 
 - Gradle Groovy DSL 기반 빌드
 - Spring Boot `3.2.1`

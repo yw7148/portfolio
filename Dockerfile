@@ -1,15 +1,5 @@
 FROM amazoncorretto:17 as build
 
-ARG DB_URL
-ARG DB_USER
-ARG DB_PW
-ARG JWT_SECRET
-
-ENV DB_URL=${DB_URL}
-ENV DB_USER=${DB_USER}
-ENV DB_PW=${DB_PW}
-ENV JWT_SECRET=${JWT_SECRET}
-
 WORKDIR /workspace/app
 
 COPY . /workspace/app
@@ -24,4 +14,4 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java","-cp","app:app/lib/*", "-Dspring.profiles.active=${PROFILE}", "com.youngwon.portfolio.PortfolioApplication"]
+ENTRYPOINT ["java","-cp","app:app/lib/*", "-Dspring.profiles.active=${PROFILE}", "com.youngwon.portfolio.PortfolioApplicationKt"]
