@@ -1,0 +1,121 @@
+openapi: 3.0.3
+info:
+  title: Portfolio API
+  version: 0.1.0
+  description: |
+    Contract-first API definition for the portfolio backend.
+servers:
+  - url: /api/v1
+tags:
+  - name: Projects
+  - name: Contacts
+paths:
+  /projects:
+    get:
+      tags:
+        - Projects
+      operationId: listProjects
+      summary: List portfolio projects
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectSummary'
+  /projects/{projectId}/programs:
+    get:
+      tags:
+        - Projects
+      operationId: listProjectPrograms
+      summary: List the programs used in a project
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProgramSummary'
+  /contacts:
+    post:
+      tags:
+        - Contacts
+      operationId: createContact
+      summary: Store a contact message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactCreateRequest'
+      responses:
+        '201':
+          description: Contact created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactCreateResponse'
+components:
+  schemas:
+    ProjectSummary:
+      type: object
+      required:
+        - id
+        - name
+        - category
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        category:
+          type: string
+        img:
+          type: string
+          nullable: true
+    ProgramSummary:
+      type: object
+      required:
+        - name
+        - icon
+        - link
+      properties:
+        name:
+          type: string
+        icon:
+          type: string
+        link:
+          type: string
+    ContactCreateRequest:
+      type: object
+      required:
+        - name
+        - email
+        - message
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        message:
+          type: string
+    ContactCreateResponse:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: boolean
