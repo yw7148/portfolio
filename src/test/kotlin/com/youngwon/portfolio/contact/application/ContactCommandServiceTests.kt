@@ -13,6 +13,7 @@ import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDateTime
+import java.time.ZoneId
 
 @ExtendWith(MockitoExtension::class)
 class ContactCommandServiceTests {
@@ -29,14 +30,17 @@ class ContactCommandServiceTests {
 
     @Test
     fun `create contact persists contact with next id`() {
+        val seoulZone = ZoneId.of("Asia/Seoul")
         val submission = ContactSubmission(
             name = "Youngwon",
             email = "youngwon@example.com",
             message = "Hello",
         )
         `when`(contactStore.nextId()).thenReturn(8)
+        val before = LocalDateTime.now(seoulZone).minusSeconds(1)
 
         val result = service.createContact(submission)
+        val after = LocalDateTime.now(seoulZone).plusSeconds(1)
 
         assertTrue(result)
         verify(contactStore).nextId()
@@ -48,6 +52,7 @@ class ContactCommandServiceTests {
         assertEquals("Youngwon", actual.name)
         assertEquals("youngwon@example.com", actual.email)
         assertEquals("Hello", actual.message)
-        assertTrue(actual.contactDate.isBefore(LocalDateTime.now().plusSeconds(1)))
+        assertFalse(actual.contactDate.isBefore(before))
+        assertFalse(actual.contactDate.isAfter(after))
     }
 }
