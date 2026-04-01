@@ -1,27 +1,25 @@
-package com.youngwon.portfolio.home.entity
+package com.youngwon.portfolio.project.infra.persistence
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "project")
-open class ProjectEntity {
+@Table(name = "program")
+open class ProgramJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     open var id: Int = 0
 
-    open lateinit var category: String
-
+    @Column(name = "name", nullable = false)
     open lateinit var name: String
 
-    open var img: String? = null
-
-    @OneToMany(mappedBy = "project")
-    open var programs: MutableList<ProjectProgramEntity> = mutableListOf()
+    @Column(name = "icon", nullable = false)
+    open lateinit var icon: String
 
     protected constructor()
 }

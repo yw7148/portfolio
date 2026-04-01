@@ -7,8 +7,18 @@ spring:
       "local": "local-db,local-server"
       "test":  "prod-db,prod-server"
       "prod": "prod-db,prod-server"
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    validate-on-migrate: true
+    baseline-on-migrate: ${FLYWAY_BASELINE_ON_MIGRATE:false}
+    baseline-version: ${FLYWAY_BASELINE_VERSION:0.0.1}
+  modulith:
+    detection-strategy: explicitly-annotated
 
-#JWT secret
 spring.jwt.secret: ${JWT_SECRET}
 
 
@@ -19,24 +29,24 @@ management.security.enabled: false
 
 spring.config.activate.on-profile: local-db
 spring.datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    username: ${LOCAL_DB_USER}
-    password: ${LOCAL_DB_PW}
-    url: jdbc:mariadb://host.docker.internal:3306/portfolio?allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: ${LOCAL_DB_USER:portfolio}
+    password: ${LOCAL_DB_PW:portfolio}
+    url: ${LOCAL_DB_URL:jdbc:oracle:thin:@localhost:1521/FREEPDB1}
 
 ---
 
 spring.config.activate.on-profile: prod-db
 
 spring.datasource:
-    driver-class-name: oracle.jdbc.driver.OracleDriver
+    driver-class-name: oracle.jdbc.OracleDriver
     username: ${DB_USER}
     password: ${DB_PW}
     url: ${DB_URL}
 
 ---
 
-spring.config.active.on-profile: prod-server
+spring.config.activate.on-profile: prod-server
 
 server.port: 9001
 

@@ -28,11 +28,30 @@ jobs:
       - name: Build and test
         run: ./gradlew clean test bootJar
 
+      - name: Collect release assets
+        run: |
+          mkdir -p release-assets
+          cp src/main/openapi/portfolio-api.yaml release-assets/
+          cp "$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-plain.jar' | head -n 1)" release-assets/
+
+      - name: Upload release assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-assets
+          path: release-assets/*
+          if-no-files-found: error
+
   create-release:
     needs: build-and-test
     runs-on: ubuntu-latest
 
     steps:
+      - name: Download release assets
+        uses: actions/download-artifact@v4
+        with:
+          name: release-assets
+          path: release-assets
+
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -45,6 +64,11 @@ jobs:
               --verify-tag \
               --generate-notes
           fi
+
+      - name: Upload release assets to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${GITHUB_REF_NAME}" release-assets/* --repo "${GITHUB_REPOSITORY}" --clobber
 
   publish-docker:
     needs:
