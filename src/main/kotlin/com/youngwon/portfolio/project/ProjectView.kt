@@ -1,6 +1,6 @@
-package com.youngwon.portfolio.home.dto
+package com.youngwon.portfolio.project
 
-data class Project(
+data class ProjectView(
     val id: Int,
     val name: String,
     val category: String,

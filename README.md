@@ -19,12 +19,12 @@ Welcome to my Backend developer portfolio repository! This project showcases my 
 ## 🛠️ Technologies Used
 > for DevOps information, please refer [Server Repository](https://github.com/yw7148/Server)
 - **Backend**: Spring Boot 4.0.3 (Java 17, Kotlin-enabled)
-- **Database**: Mariadb 11 (Local Development), Oracle Database 19c (Production)
+- **Database**: Oracle Database Free (Local/Test), Oracle Database (Production)
 - **Authentication**: JWT, OAuth (Preparing...)
 - **Testing**: Spring Test (JUnit)
 - **Containerization**: Docker
 - **CI/CD**: GitHub Actions
-- **Others**: OpenAPI Generator, Kotlin REST controllers
+- **Others**: OpenAPI Generator, Spring Modulith, Flyway
 
 ## 📂 Project Structure
 
@@ -52,6 +52,18 @@ Welcome to my Backend developer portfolio repository! This project showcases my 
 ### Prerequisites
 
 - Docker
+
+### Local Oracle DB
+
+```bash
+docker compose up -d
+```
+
+Default local connection:
+
+- URL: `jdbc:oracle:thin:@localhost:1521/FREEPDB1`
+- Username: `portfolio`
+- Password: `portfolio`
 
 ### Build docker image
 > In my case, *--platform linux/amd64,linux/arm64* is added to support multi-platform (my production environment is *linux/arm64*)
@@ -114,7 +126,9 @@ The backend now targets REST APIs only.
 
 - Legacy Thymeleaf page routes are no longer part of the active runtime path
 - Static resource mappings are disabled in application configuration
-- Integration tests use Testcontainers, so build/test does not need an external DB connection
+- Integration tests use Oracle Testcontainers, so build/test does not need an external DB connection
+- Flyway migrations use `m.n.i` version names such as `V0.0.1__baseline_schema.sql`
+- Logical relations are managed with indexed columns instead of physical foreign key constraints
 
 ## ✅ Current Checkpoint
 
@@ -129,7 +143,8 @@ Current state:
 - Spring Boot `4.0.3`
 - REST-only backend runtime
 - OpenAPI-first contract in `src/main/openapi/portfolio-api.yaml`
-- Kotlin application entry point, DTOs, controllers, services, repositories, and entities
+- Spring Modulith-based `contact` / `project` modules
+- Flyway-managed Oracle schema
 - GitHub Actions-based CI/CD and Docker packaging
 
 ## 📬 Contact

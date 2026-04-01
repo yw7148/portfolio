@@ -1,8 +1,9 @@
 package com.youngwon.portfolio.api
 
-import com.youngwon.portfolio.home.dto.Program
-import com.youngwon.portfolio.home.dto.Project
-import com.youngwon.portfolio.home.service.PortfolioService
+import com.youngwon.portfolio.contact.ContactUseCase
+import com.youngwon.portfolio.project.ProgramView
+import com.youngwon.portfolio.project.ProjectQueryUseCase
+import com.youngwon.portfolio.project.ProjectView
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.`when`
@@ -22,13 +23,16 @@ class PortfolioRestApiControllerTests {
     private lateinit var mockMvc: MockMvc
 
     @MockitoBean
-    private lateinit var portfolioService: PortfolioService
+    private lateinit var projectQueryUseCase: ProjectQueryUseCase
+
+    @MockitoBean
+    private lateinit var contactUseCase: ContactUseCase
 
     @Test
     fun `list projects returns json payload`() {
-        `when`(portfolioService.projects()).thenReturn(
+        `when`(projectQueryUseCase.listProjects()).thenReturn(
             listOf(
-                Project(
+                ProjectView(
                     id = 1,
                     name = "Portfolio",
                     category = "backend",
@@ -47,9 +51,9 @@ class PortfolioRestApiControllerTests {
 
     @Test
     fun `list project programs returns json payload`() {
-        `when`(portfolioService.programsInProject(1)).thenReturn(
+        `when`(projectQueryUseCase.listProgramsInProject(1)).thenReturn(
             listOf(
-                Program(
+                ProgramView(
                     name = "Spring Boot",
                     icon = "spring.svg",
                     link = "https://spring.io",
@@ -66,7 +70,7 @@ class PortfolioRestApiControllerTests {
 
     @Test
     fun `contact returns created response`() {
-        `when`(portfolioService.contactYoungwon(any())).thenReturn(true)
+        `when`(contactUseCase.createContact(any())).thenReturn(true)
 
         mockMvc.perform(
             post("/api/v1/contacts")
