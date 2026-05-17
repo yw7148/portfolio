@@ -9,7 +9,6 @@ plugins {
 
 group = 'com.youngwon'
 version = '0.0.1'
-sourceCompatibility = '17'
 
 configurations {
 	compileOnly {
@@ -69,9 +68,9 @@ openApiGenerate {
 	library.set('spring-boot')
 	inputSpec.set("$projectDir/src/main/openapi/portfolio-api.yaml")
 	outputDir.set(openApiOutputDir)
-	packageName.set('com.youngwon.portfolio.generated')
-	apiPackage.set('com.youngwon.portfolio.generated.api')
-	modelPackage.set('com.youngwon.portfolio.generated.model')
+	packageName.set('me.youngwon.portfolio.generated')
+	apiPackage.set('me.youngwon.portfolio.generated.api')
+	modelPackage.set('me.youngwon.portfolio.generated.model')
 	configOptions.set([
 		interfaceOnly        : 'true',
 		requestMappingMode   : 'api_interface',
@@ -95,8 +94,8 @@ tasks.named('check') {
 
 tasks.named('openApiGenerate') {
 	dependsOn tasks.named('openApiValidate')
-	doLast {
-		delete "$buildDir/generated/openapi/src/main/kotlin/com/youngwon/portfolio/generated/api/Exceptions.kt"
+	doFirst {
+		delete openApiOutputDir
 	}
 }
 

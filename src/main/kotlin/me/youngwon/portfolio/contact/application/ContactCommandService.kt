@@ -1,7 +1,7 @@
-package com.youngwon.portfolio.contact.application
+package me.youngwon.portfolio.contact.application
 
-import com.youngwon.portfolio.contact.ContactSubmission
-import com.youngwon.portfolio.contact.ContactUseCase
+import me.youngwon.portfolio.contact.ContactSubmission
+import me.youngwon.portfolio.contact.ContactUseCase
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime

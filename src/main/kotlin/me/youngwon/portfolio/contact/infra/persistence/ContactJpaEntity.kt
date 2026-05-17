@@ -1,4 +1,4 @@
-package com.youngwon.portfolio.contact.infra.persistence
+package me.youngwon.portfolio.contact.infra.persistence
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

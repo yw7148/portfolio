@@ -1,4 +1,4 @@
-package com.youngwon.portfolio.project
+package me.youngwon.portfolio.project
 
 data class ProjectView(
     val id: Int,

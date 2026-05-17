@@ -1,4 +1,4 @@
-package com.youngwon.portfolio.contact.infra.persistence
+package me.youngwon.portfolio.contact.infra.persistence
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query

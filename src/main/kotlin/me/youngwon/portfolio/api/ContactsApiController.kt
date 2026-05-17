@@ -1,10 +1,10 @@
-package com.youngwon.portfolio.api
+package me.youngwon.portfolio.api
 
-import com.youngwon.portfolio.contact.ContactSubmission
-import com.youngwon.portfolio.contact.ContactUseCase
-import com.youngwon.portfolio.generated.api.ContactsApi
-import com.youngwon.portfolio.generated.model.ContactCreateRequest
-import com.youngwon.portfolio.generated.model.ContactCreateResponse
+import me.youngwon.portfolio.contact.ContactSubmission
+import me.youngwon.portfolio.contact.ContactUseCase
+import me.youngwon.portfolio.generated.api.ContactsApi
+import me.youngwon.portfolio.generated.model.ContactCreateRequest
+import me.youngwon.portfolio.generated.model.ContactCreateResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController

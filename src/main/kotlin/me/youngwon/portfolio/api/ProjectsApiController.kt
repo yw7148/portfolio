@@ -1,9 +1,9 @@
-package com.youngwon.portfolio.api
+package me.youngwon.portfolio.api
 
-import com.youngwon.portfolio.generated.api.ProjectsApi
-import com.youngwon.portfolio.generated.model.ProgramSummary
-import com.youngwon.portfolio.generated.model.ProjectSummary
-import com.youngwon.portfolio.project.ProjectQueryUseCase
+import me.youngwon.portfolio.generated.api.ProjectsApi
+import me.youngwon.portfolio.generated.model.ProgramSummary
+import me.youngwon.portfolio.generated.model.ProjectSummary
+import me.youngwon.portfolio.project.ProjectQueryUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 

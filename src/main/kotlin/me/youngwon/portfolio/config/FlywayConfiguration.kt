@@ -1,4 +1,4 @@
-package com.youngwon.portfolio.config
+package me.youngwon.portfolio.config
 
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.MigrationVersion
