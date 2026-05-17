@@ -1,6 +1,6 @@
-package com.youngwon.portfolio.contact.application
+package me.youngwon.portfolio.contact.application
 
-import com.youngwon.portfolio.contact.ContactSubmission
+import me.youngwon.portfolio.contact.ContactSubmission
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue

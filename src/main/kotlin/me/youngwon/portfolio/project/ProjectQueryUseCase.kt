@@ -1,4 +1,6 @@
-package com.youngwon.portfolio.project
+package me.youngwon.portfolio.project
+
+import me.youngwon.portfolio.project.ProgramView
 
 interface ProjectQueryUseCase {
     fun listProjects(): List<ProjectView>

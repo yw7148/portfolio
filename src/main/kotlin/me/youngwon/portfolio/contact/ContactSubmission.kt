@@ -1,4 +1,4 @@
-package com.youngwon.portfolio.contact
+package me.youngwon.portfolio.contact
 
 data class ContactSubmission @JvmOverloads constructor(
     val name: String? = null,

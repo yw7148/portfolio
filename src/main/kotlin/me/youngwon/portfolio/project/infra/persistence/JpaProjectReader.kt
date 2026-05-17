@@ -1,8 +1,8 @@
-package com.youngwon.portfolio.project.infra.persistence
+package me.youngwon.portfolio.project.infra.persistence
 
-import com.youngwon.portfolio.project.ProgramView
-import com.youngwon.portfolio.project.ProjectView
-import com.youngwon.portfolio.project.application.ProjectReader
+import me.youngwon.portfolio.project.ProgramView
+import me.youngwon.portfolio.project.ProjectView
+import me.youngwon.portfolio.project.application.ProjectReader
 import org.springframework.stereotype.Repository
 
 @Repository

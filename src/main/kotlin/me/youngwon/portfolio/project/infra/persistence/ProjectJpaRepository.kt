@@ -1,4 +1,4 @@
-package com.youngwon.portfolio.project.infra.persistence
+package me.youngwon.portfolio.project.infra.persistence
 
 import org.springframework.data.jpa.repository.JpaRepository
 

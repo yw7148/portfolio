@@ -1,4 +1,4 @@
-package com.youngwon.portfolio.contact
+package me.youngwon.portfolio.contact
 
 import org.springframework.modulith.ApplicationModule
 import org.springframework.modulith.PackageInfo

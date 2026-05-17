@@ -1,7 +1,7 @@
-package com.youngwon.portfolio.contact.infra.persistence
+package me.youngwon.portfolio.contact.infra.persistence
 
-import com.youngwon.portfolio.contact.application.ContactStore
-import com.youngwon.portfolio.contact.application.StoredContact
+import me.youngwon.portfolio.contact.application.ContactStore
+import me.youngwon.portfolio.contact.application.StoredContact
 import org.springframework.stereotype.Repository
 
 @Repository

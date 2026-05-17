@@ -1,4 +1,4 @@
-package com.youngwon.portfolio
+package me.youngwon.portfolio
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

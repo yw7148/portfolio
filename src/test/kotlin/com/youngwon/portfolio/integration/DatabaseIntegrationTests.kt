@@ -1,9 +1,9 @@
-package com.youngwon.portfolio.integration
+package me.youngwon.portfolio.integration
 
-import com.youngwon.portfolio.contact.ContactSubmission
-import com.youngwon.portfolio.contact.ContactUseCase
-import com.youngwon.portfolio.contact.infra.persistence.ContactJpaRepository
-import com.youngwon.portfolio.project.ProjectQueryUseCase
+import me.youngwon.portfolio.contact.ContactSubmission
+import me.youngwon.portfolio.contact.ContactUseCase
+import me.youngwon.portfolio.contact.infra.persistence.ContactJpaRepository
+import me.youngwon.portfolio.project.ProjectQueryUseCase
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
