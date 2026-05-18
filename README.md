@@ -9,18 +9,23 @@ Welcome to my Backend developer portfolio repository! This project showcases my 
 
 ## 🚀 Features
 
-- **User Authentication**: Secure login and registration system using JWT.
-- **RESTful API**: Efficient and scalable APIs.
-- **Database Integration**: Oracle Database for robust data storage.
-- **Testing**: Comprehensive unit and integration tests.
-- **Documentation**: Contract-first API design using OpenAPI YAML.
-- **Deployment**: Continuous integration and deployment using GitHub Actions and Docker.
+- **REST API**: Project listing, project program listing, and contact submission APIs.
+- **Contract-first API**: OpenAPI YAML drives generated Kotlin/Spring interfaces and request/response models.
+- **Oracle persistence**: Oracle Database integration with Flyway-managed schema migrations.
+- **Modular backend**: Spring Modulith separates contact and project modules.
+- **Testing**: Unit, web MVC, architecture, and Oracle Testcontainers integration tests.
+- **Deployment packaging**: GitHub Actions and Docker build the deployable application image.
+
+## 🗺️ Roadmap
+
+- JWT-based authentication and authorization.
+- Login, registration, and OAuth integration.
+- Additional portfolio runtime features beyond the current REST API surface.
 
 ## 🛠️ Technologies Used
 > for DevOps information, please refer [Server Repository](https://github.com/yw7148/Server)
-- **Backend**: Spring Boot 4.0.3 (Java 17, Kotlin-enabled)
+- **Backend**: Spring Boot 4.0.3 (Java 17, Kotlin, package namespace `me.youngwon.portfolio`)
 - **Database**: Oracle Database Free (Local/Test), Oracle Database (Production)
-- **Authentication**: JWT, OAuth (Preparing...)
 - **Testing**: Spring Test (JUnit)
 - **Containerization**: Docker
 - **CI/CD**: GitHub Actions
@@ -73,8 +78,15 @@ Default local connection:
 > for more information: [Multi-Platform Images | Docker Docs](https://docs.docker.com/build/building/multi-platform/)
 ```bash
 DOCKER_BUILDKIT=1 docker buildx build \
-    --platform linux/amd64,linux/arm64 \ #option to support multi-platform
-    -t yw7148/portfolio:latest .'
+    --platform linux/amd64,linux/arm64 \
+    -t yw7148/portfolio:latest \
+    .
+```
+
+For a single-platform local image:
+
+```bash
+docker build -t yw7148/portfolio:latest .
 ```
 
 ## CI/CD
@@ -96,15 +108,21 @@ GitHub Actions workflows now handle the repository CI/CD flow.
 
 ## Deploy
 
-#### Before deploy with docker, env file is required
-.env file
+#### Before deploy with Docker, an env file is required
+
+`.env`
+
+```dotenv
+DB_URL=
+DB_USER=
+DB_PW=
+JWT_SECRET=
 ```
- DB_URL=
- DB_USER=
- DB_PW=
- JWT_SECRET=
-```
-#### Run docker container
+
+The `prod` profile activates `prod-db` and `prod-server`, so the application listens on port `9001`.
+
+#### Run Docker container
+
 ```bash
 docker run --pull always -d --name portfolio -p 9001:9001 \
     -e PROFILE=prod \
@@ -142,6 +160,7 @@ Current state:
 
 - Spring Boot `4.0.3`
 - REST-only backend runtime
+- Kotlin package namespace `me.youngwon.portfolio`
 - OpenAPI-first contract in `src/main/openapi/portfolio-api.yaml`
 - Spring Modulith-based `contact` / `project` modules
 - Flyway-managed Oracle schema
