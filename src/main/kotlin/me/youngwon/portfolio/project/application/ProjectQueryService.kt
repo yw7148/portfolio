@@ -14,11 +14,6 @@ class ProjectQueryService(
     override fun listProjects(): List<ProjectView> = projectReader.findProjects()
 
     @Transactional(readOnly = true)
-    override fun listProgramsInProject(projectId: Int?): List<ProgramView> {
-        if (projectId == null) {
-            return emptyList()
-        }
-
-        return projectReader.findProgramsInProject(projectId)
-    }
+    override fun listProgramsInProject(projectId: Int): List<ProgramView> =
+        projectReader.findProgramsInProject(projectId)
 }
