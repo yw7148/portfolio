@@ -3,7 +3,6 @@ package me.youngwon.portfolio.project.application
 import me.youngwon.portfolio.project.ProgramView
 import me.youngwon.portfolio.project.ProjectView
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -33,11 +32,6 @@ class ProjectQueryServiceTests {
         val result = service.listProjects()
 
         assertEquals(listOf(project), result)
-    }
-
-    @Test
-    fun `list programs returns empty list when project id is null`() {
-        assertTrue(service.listProgramsInProject(null).isEmpty())
     }
 
     @Test

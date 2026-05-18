@@ -5,5 +5,5 @@ import me.youngwon.portfolio.project.ProgramView
 interface ProjectQueryUseCase {
     fun listProjects(): List<ProjectView>
 
-    fun listProgramsInProject(projectId: Int?): List<ProgramView>
+    fun listProgramsInProject(projectId: Int): List<ProgramView>
 }
