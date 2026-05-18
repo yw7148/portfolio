@@ -66,6 +66,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContactCreateResponse'
+        '400':
+          description: Invalid contact request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
 components:
   schemas:
     ProjectSummary:
@@ -107,11 +113,20 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
+          maxLength: 100
+          pattern: '.*\S.*'
         email:
           type: string
           format: email
+          minLength: 1
+          maxLength: 254
+          pattern: '.*\S.*'
         message:
           type: string
+          minLength: 1
+          maxLength: 2000
+          pattern: '.*\S.*'
     ContactCreateResponse:
       type: object
       required:
@@ -119,3 +134,13 @@ components:
       properties:
         success:
           type: boolean
+    ApiErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
