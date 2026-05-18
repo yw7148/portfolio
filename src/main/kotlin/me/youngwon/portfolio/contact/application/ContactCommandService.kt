@@ -14,7 +14,6 @@ class ContactCommandService(
     @Transactional
     override fun createContact(submission: ContactSubmission): Boolean {
         val contact = StoredContact(
-            id = contactStore.nextId(),
             name = submission.name,
             email = submission.email,
             message = submission.message,
