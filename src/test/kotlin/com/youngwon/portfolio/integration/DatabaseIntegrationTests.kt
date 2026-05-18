@@ -66,7 +66,12 @@ class DatabaseIntegrationTests {
             ),
         )
 
-        assertEquals(1, contactRepository.findMaxId())
+        val savedContacts = contactRepository.findAll()
+        val generatedIds = savedContacts.mapNotNull { it.id }
+
+        assertEquals(2, savedContacts.size)
+        assertEquals(2, generatedIds.distinct().size)
+        assertTrue(generatedIds.all { it > 0 })
     }
 
     @Test

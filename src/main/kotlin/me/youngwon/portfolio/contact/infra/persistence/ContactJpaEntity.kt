@@ -2,7 +2,10 @@ package me.youngwon.portfolio.contact.infra.persistence
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.SequenceGenerator
 import jakarta.persistence.Table
 import java.time.LocalDateTime
 
@@ -10,6 +13,8 @@ import java.time.LocalDateTime
 @Table(name = "contact")
 open class ContactJpaEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_id")
+    @SequenceGenerator(name = "contact_id", sequenceName = "contact_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     open var id: Int? = null
 
@@ -28,13 +33,11 @@ open class ContactJpaEntity {
     protected constructor()
 
     constructor(
-        id: Int,
         name: String,
         email: String,
         message: String,
         contactDate: LocalDateTime,
     ) : this() {
-        this.id = id
         this.name = name
         this.email = email
         this.message = message

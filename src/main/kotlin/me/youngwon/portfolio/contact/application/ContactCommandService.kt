@@ -18,7 +18,6 @@ class ContactCommandService(
         }
 
         val contact = StoredContact(
-            id = contactStore.nextId(),
             name = submission.name.orEmpty(),
             email = submission.email.orEmpty(),
             message = submission.message.orEmpty(),
