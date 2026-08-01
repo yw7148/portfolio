@@ -22,11 +22,6 @@ class ContactCommandServiceTests {
     private lateinit var service: ContactCommandService
 
     @Test
-    fun `create contact returns false when submission is null`() {
-        assertFalse(service.createContact(null))
-    }
-
-    @Test
     fun `create contact persists contact without assigning id`() {
         val seoulZone = ZoneId.of("Asia/Seoul")
         val submission = ContactSubmission(

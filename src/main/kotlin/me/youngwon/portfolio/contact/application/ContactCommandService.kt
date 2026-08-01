@@ -12,15 +12,11 @@ class ContactCommandService(
     private val contactStore: ContactStore,
 ) : ContactUseCase {
     @Transactional
-    override fun createContact(submission: ContactSubmission?): Boolean {
-        if (submission == null) {
-            return false
-        }
-
+    override fun createContact(submission: ContactSubmission): Boolean {
         val contact = StoredContact(
-            name = submission.name.orEmpty(),
-            email = submission.email.orEmpty(),
-            message = submission.message.orEmpty(),
+            name = submission.name,
+            email = submission.email,
+            message = submission.message,
             contactDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")),
         )
 

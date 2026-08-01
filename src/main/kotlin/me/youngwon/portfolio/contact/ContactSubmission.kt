@@ -1,7 +1,7 @@
 package me.youngwon.portfolio.contact
 
-data class ContactSubmission @JvmOverloads constructor(
-    val name: String? = null,
-    val email: String? = null,
-    val message: String? = null,
+data class ContactSubmission(
+    val name: String,
+    val email: String,
+    val message: String,
 )

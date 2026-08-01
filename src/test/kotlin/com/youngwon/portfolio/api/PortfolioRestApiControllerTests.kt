@@ -1,11 +1,13 @@
 package me.youngwon.portfolio.api
 
+import me.youngwon.portfolio.contact.ContactSubmission
 import me.youngwon.portfolio.contact.ContactUseCase
 import me.youngwon.portfolio.project.ProgramView
 import me.youngwon.portfolio.project.ProjectQueryUseCase
 import me.youngwon.portfolio.project.ProjectView
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.Mockito.`when`
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest
@@ -70,7 +72,7 @@ class PortfolioRestApiControllerTests {
 
     @Test
     fun `contact returns created response`() {
-        `when`(contactUseCase.createContact(any())).thenReturn(true)
+        `when`(contactUseCase.createContact(anyContactSubmission())).thenReturn(true)
 
         mockMvc.perform(
             post("/api/v1/contacts")
@@ -90,6 +92,48 @@ class PortfolioRestApiControllerTests {
     }
 
     @Test
+    fun `contact rejects blank name`() {
+        postContact(
+            name = "   ",
+            email = "youngwon@example.com",
+            message = "Hello",
+        )
+            .andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$.code").value("INVALID_REQUEST"))
+            .andExpect(jsonPath("$.message").value("Request validation failed."))
+
+        verifyNoInteractions(contactUseCase)
+    }
+
+    @Test
+    fun `contact rejects invalid email`() {
+        postContact(
+            name = "Youngwon",
+            email = "not-email",
+            message = "Hello",
+        )
+            .andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$.code").value("INVALID_REQUEST"))
+            .andExpect(jsonPath("$.message").value("Request validation failed."))
+
+        verifyNoInteractions(contactUseCase)
+    }
+
+    @Test
+    fun `contact rejects too long message`() {
+        postContact(
+            name = "Youngwon",
+            email = "youngwon@example.com",
+            message = "a".repeat(2001),
+        )
+            .andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$.code").value("INVALID_REQUEST"))
+            .andExpect(jsonPath("$.message").value("Request validation failed."))
+
+        verifyNoInteractions(contactUseCase)
+    }
+
+    @Test
     fun `legacy portfolio page route is not served`() {
         mockMvc.perform(get("/portfolio"))
             .andExpect(status().isNotFound)
@@ -99,5 +143,32 @@ class PortfolioRestApiControllerTests {
     fun `legacy root route is not served`() {
         mockMvc.perform(get("/"))
             .andExpect(status().isNotFound)
+    }
+
+    private fun postContact(
+        name: String,
+        email: String,
+        message: String,
+    ) = mockMvc.perform(
+        post("/api/v1/contacts")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(
+                """
+                {
+                  "name": "$name",
+                  "email": "$email",
+                  "message": "$message"
+                }
+                """.trimIndent(),
+            ),
+    )
+
+    private fun anyContactSubmission(): ContactSubmission {
+        any(ContactSubmission::class.java)
+        return ContactSubmission(
+            name = "Youngwon",
+            email = "youngwon@example.com",
+            message = "Hello",
+        )
     }
 }
