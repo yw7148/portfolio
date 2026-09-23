@@ -1,13 +1,13 @@
 package me.youngwon.portfolio.contact.infra.persistence
 
-import me.youngwon.portfolio.contact.application.ContactStore
+import me.youngwon.portfolio.contact.application.ContactRepository
 import me.youngwon.portfolio.contact.application.StoredContact
 import org.springframework.stereotype.Repository
 
 @Repository
-class JpaContactStore(
+class ContactPersistenceAdapter(
     private val contactJpaRepository: ContactJpaRepository,
-) : ContactStore {
+) : ContactRepository {
     override fun save(contact: StoredContact) {
         contactJpaRepository.save(
             ContactJpaEntity(
