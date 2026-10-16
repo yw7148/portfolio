@@ -9,7 +9,7 @@ import java.time.ZoneId
 
 @Service
 class ContactCommandService(
-    private val contactStore: ContactStore,
+    private val contactRepository: ContactRepository,
 ) : ContactUseCase {
     @Transactional
     override fun createContact(submission: ContactSubmission): Boolean {
@@ -20,7 +20,7 @@ class ContactCommandService(
             contactDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")),
         )
 
-        contactStore.save(contact)
+        contactRepository.save(contact)
         return true
     }
 }

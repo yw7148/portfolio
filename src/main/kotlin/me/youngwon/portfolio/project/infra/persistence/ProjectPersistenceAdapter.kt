@@ -6,7 +6,7 @@ import me.youngwon.portfolio.project.application.ProjectReader
 import org.springframework.stereotype.Repository
 
 @Repository
-class JpaProjectReader(
+class ProjectPersistenceAdapter(
     private val projectJpaRepository: ProjectJpaRepository,
     private val projectProgramJpaRepository: ProjectProgramJpaRepository,
 ) : ProjectReader {

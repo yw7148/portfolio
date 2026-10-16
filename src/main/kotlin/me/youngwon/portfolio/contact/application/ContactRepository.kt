@@ -2,7 +2,7 @@ package me.youngwon.portfolio.contact.application
 
 import java.time.LocalDateTime
 
-interface ContactStore {
+interface ContactRepository {
     fun save(contact: StoredContact)
 }
 

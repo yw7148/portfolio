@@ -16,13 +16,13 @@ import java.time.ZoneId
 @ExtendWith(MockitoExtension::class)
 class ContactCommandServiceTests {
     @Mock
-    private lateinit var contactStore: ContactStore
+    private lateinit var contactRepository: ContactRepository
 
     @InjectMocks
     private lateinit var service: ContactCommandService
 
     @Test
-    fun `create contact persists contact without assigning id`() {
+    fun `create contact delegates persistence to repository without assigning id`() {
         val seoulZone = ZoneId.of("Asia/Seoul")
         val submission = ContactSubmission(
             name = "Youngwon",
@@ -36,7 +36,7 @@ class ContactCommandServiceTests {
 
         assertTrue(result)
 
-        val saveInvocation = mockingDetails(contactStore).invocations
+        val saveInvocation = mockingDetails(contactRepository).invocations
             .first { it.method.name == "save" }
         val actual = saveInvocation.arguments[0] as StoredContact
         assertEquals("Youngwon", actual.name)
